@@ -74,6 +74,7 @@ load _helpers
 teardown() {
   if [[ ${CLEANUP:-true} == "true" ]]
   then
+      kubectl logs --namespace acceptance --tail=-1 -l job-name=secrets-store-csi-driver-upgrade-crds
       echo "helm/pvc teardown"
       helm --namespace=acceptance delete vault
       helm --namespace=acceptance delete secrets-store-csi-driver
